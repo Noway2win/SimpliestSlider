@@ -1,0 +1,16 @@
+{
+    "slidersrc": [
+        {
+            "src": "slider/paprika.jpg"
+        },
+        {
+            "src": "slider/food-12.jpg"
+        },
+        {
+            "src": "slider/olive-oil.jpg"
+        },
+        {
+            "src": "slider/pepper.jpg"
+        }
+    ]
+}
