@@ -12,17 +12,7 @@ window.addEventListener('DOMContentLoaded', function () {
         let num = +str.replace(/\D/g, '');
         return num;
     }
-    // class Slide {
-    //     constructor(src) {
-    //         this.src = src;
 
-    //     }
-    //     createSlide() {
-    //         const slide = document.createElement('div');
-    //         slide.innerHTML = `<img src =${this.src} alt= "">`;
-    //         return slide;
-    //     }
-    // }
     class Slider {
         constructor(parent, url) {
             this.parent = document.querySelector(parent);
@@ -37,21 +27,26 @@ window.addEventListener('DOMContentLoaded', function () {
                         src
                     }) => {
                         let slide = document.createElement('div');
-                        slide.innerHTML = `<img src =${src} alt= "">`;
-                        slide.querySelector('img').style.cssText = `height: ${window.getComputedStyle(this.parent).height}; width: ${window.getComputedStyle(this.parent).width}`;
+                        slide.innerHTML = `<img src =${src} alt= "${src.match(/[^\/]+$/)[0]}">`;
+                        slide.querySelector('img').style.cssText = `height:${window.getComputedStyle(this.parent).height};\n 
+                        width: ${window.getComputedStyle(this.parent).width}`;
                         this.imgArr.push(slide);
                     });
                 })
                 .then(() => {
-                    this.parent.innerHTML = `<div class="${this.parent.classList}-slide-next">&#8658;</div><div class="${this.parent.classList}-slide-prev">&#8656;</div><div class="${this.parent.classList}-slider_inner"></div>`;
+                    this.parent.innerHTML = `<div class="${this.parent.classList}-slide-next">&#8658;</div> \n
+                    <div class="${this.parent.classList}-slide-prev">&#8656;</div>\n
+                    <div class="${this.parent.classList}-slider_inner"></div>`;
                     this.imgArr.forEach(elem => {
                         this.parent.querySelector(`.${this.parent.classList}-slider_inner`).append(elem);
                     });
                 })
                 .then(() => {
                     let offset = 0;
-                    this.parent.querySelector(`.${this.parent.classList}-slider_inner`).style.cssText = ' height: 100%;background-color: blue;display: flex;';
-                    this.parent.querySelector(`.${this.parent.classList}-slider_inner`).style.width = `${stringToNumber(window.getComputedStyle(this.parent).width) * this.imgArr.length}px`;
+                    this.parent.querySelector(`.${this.parent.classList}-slider_inner`).style.cssText = `height: 100%;background-color: blue;\n
+                    display: flex;`;
+                    this.parent.querySelector(`.${this.parent.classList}-slider_inner`).style.width =
+                        `${stringToNumber(window.getComputedStyle(this.parent).width) * this.imgArr.length}px`;
                     this.parent.querySelector(`.${this.parent.classList}-slide-next`).style.cssText = 'position: absolute;color: white;font-size: 25px; top: 50%; transform: translate(-100%, -50%);left: 100%; cursor: pointer; z-index: 10;';
                     this.parent.querySelector(`.${this.parent.classList}-slide-prev`).style.cssText = 'position: absolute; color: white;font-size: 25px;top: 50%; transform: translateY(-50%);left: 0; cursor: pointer; z-index: 10;';
                     this.parent.querySelector(`.${this.parent.classList}-slide-next`).addEventListener('click', () => {
