@@ -62,7 +62,7 @@ function createSlider({
                         nextBtn = this.parent.querySelector(`.${this.parent.classList}-slide-next`),
                         prevBtn = this.parent.querySelector(`.${this.parent.classList}-slide-prev`);
                     inner.style.cssText = `height: 100%;background-color: blue;\n
-                    display: flex;`;
+                    display: flex;transition: 0.5s all;`;
                     inner.style.width =
                         `${Slider.stringToNumber(window.getComputedStyle(this.parent).width) * this.imgArr.length}px`;
                     nextBtn.style.cssText = 'position: absolute;color: white;font-size: 25px; top: 50%; transform: translate(-100%, -50%);left: 100%; cursor: pointer; z-index: 10;';
