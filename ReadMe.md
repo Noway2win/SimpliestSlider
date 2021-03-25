@@ -1,7 +1,7 @@
 #SimpiestSlider
 This is Simpliest slider that requires only ParentNode selector and url to images source(now using only json-server).
 
-#Installation
+##Installation
 
 1. Download file slider.js from folder js.
 2. Install json-server
