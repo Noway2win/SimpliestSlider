@@ -24,11 +24,13 @@ function createSlider({
             this.pushImg();
         }
         static async getData(url) {
-            const imgData = await fetch(url);
-            if (!imgData.ok) {
-                throw new Error(`Can not get data from${this.url}, message status ${imgData.status}`);
-            }
-
+            const imgData = await fetch(url).then((res) => {
+                if (res.ok) {
+                    return res;
+                } else {
+                    throw new Error(`Can not get data from${this.url}, message status ${imgData.status}`);
+                }
+            });
             return await imgData.json();
         }
         static stringToNumber(str) {
@@ -49,6 +51,9 @@ function createSlider({
                     });
                 })
                 .then(() => {
+                    if (this.imgArr.length == 0) {
+                        throw new Error(`Can not get data from${this.url}. It is empty`);
+                    }
                     this.parent.innerHTML = `<div class="${this.parent.classList}-slide-next">&#8658;</div> \n
                     <div class="${this.parent.classList}-slide-prev">&#8656;</div>\n
                     <div class="${this.parent.classList}-slider_inner"></div>`;
@@ -83,10 +88,17 @@ function createSlider({
                         }
                         inner.style.transform = `translateX(-${offset}px)`;
                     });
+                })
+                .catch((e) => {
+                    console.log(`error ${e}`);
+                    let errSlide = document.createElement('div');
+                    errSlide.style.cssText = `height: 100%; width: 100%; background-color:red; display:flex;align-items: center;justify-content: center`;
+                    errSlide.innerHTML = `<h2>Error ${e} <h2>`;
+                    this.parent.append(errSlide);
                 });
         }
-
     }
+
     new Slider(parent, url);
 }
 

@@ -44,3 +44,17 @@ createSlider({
 ```
 
 6. Thats all, slider should be on a page in any kind of div, you choose.
+
+## Error handling
+
+If you use incorrect url or server respond with empty data instead of slider you will see error block
+
+```js
+.catch((e) => {
+    console.log(`error ${e}`);
+    let errSlide = document.createElement('div');
+    errSlide.style.cssText = `height: 100%; width: 100%; background-color:red; display:flex;align-items: center;justify-content: center`;
+    errSlide.innerHTML = `<h2>Error ${e} <h2>`;
+    this.parent.append(errSlide);
+})
+```
