@@ -43,7 +43,7 @@ createSlider({
 });
 ```
 
-6. Thats all, slider should be on a page in any kind of div, you choose.
+6. Thats all, slider should be on a page in any kind of div, you choose with buttons and slides counter on right top corner.
 
 ## Error handling
 
