@@ -14,8 +14,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function createSlider({
     parent,
-    url
+    url,
+    autoplay = false,
+    delay = 15000
 }) {
+    console.log(delay);
     class Slider {
         constructor(parent, url) {
             this.parent = document.querySelector(parent);
@@ -114,7 +117,50 @@ function createSlider({
         }
     }
 
-    new Slider(parent, url);
+    class AutoSlider extends Slider {
+        constructor(parent, url, delay) {
+            super(parent, url);
+            this.delay = delay;
+            this.checkDelay();
+            this.autoplay();
+        }
+        checkDelay() {
+            if (Number.isInteger(this.delay)) {
+                this.delay = this.delay;
+            } else {
+                this.delay = 3000;
+                console.log('У нас сработка');
+            }
+        }
+        autoplay() {
+            setTimeout(() => {
+                console.log(`I am autoSlider${this.imgArr}`);
+                const inner = this.parent.querySelector(`.${this.parent.classList}-slider_inner`),
+                    counter = this.parent.querySelector(`.${this.parent.classList}-slider_counter`),
+                    currentInd = counter.querySelector('#cur'),
+                    totalSlides = this.imgArr.length;
+                let offset = 0,
+                    slideIndex = 1;
+                setInterval(() => {
+                    if (offset == Slider.stringToNumber(window.getComputedStyle(this.parent).width) * (totalSlides - 1)) {
+                        offset = 0;
+                        slideIndex = 1;
+                    } else {
+                        offset += Slider.stringToNumber(window.getComputedStyle(this.parent).width);
+                        slideIndex += 1;
+                    }
+                    inner.style.transform = `translateX(-${offset}px)`;
+                    currentInd.innerText = `${slideIndex}`;
+                }, this.delay);
+            }, 1000);
+        }
+    }
+
+    if (!autoplay) {
+        new Slider(parent, url);
+    } else {
+        new AutoSlider(parent, url, delay);
+    }
 }
 
 /***/ })
@@ -191,7 +237,9 @@ window.addEventListener('DOMContentLoaded', function () {
     });
     (0,_slider__WEBPACK_IMPORTED_MODULE_0__.createSlider)({
         parent: ".slider2__wrapper",
-        url: 'http://localhost:3000/slidersrc'
+        url: 'http://localhost:3000/slidersrc',
+        autoplay: true,
+        delay: 2000
     });
 });
 })();

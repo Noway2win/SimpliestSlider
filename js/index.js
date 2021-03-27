@@ -8,6 +8,8 @@ window.addEventListener('DOMContentLoaded', function () {
     });
     createSlider({
         parent: ".slider2__wrapper",
-        url: 'http://localhost:3000/slidersrc'
+        url: 'http://localhost:3000/slidersrc',
+        autoplay: true,
+        delay: 2000
     });
 });

@@ -33,15 +33,34 @@ npm i json-server --save-dev
 import { createSlider } from "Your path to file";
 ```
 
-5. Call createSlider function in your code, with parent-selector and json-server url
-   Example
+5. Call createSlider function in your code, with parent-selector and json-server url.
+
+### New options autoplay and delay
+
+    Now you can add 2 args to function call and your slider will change slides without clicking. Default values:
+    ```js
+    autoplay: false,
+    delay: 15000
+    ```
+    AutoSlider example:
+
+    ```js
+    createSlider({
+        parent: ".slider2__wrapper",
+        url: 'http://localhost:3000/slidersrc',
+        autoplay: true,
+        delay: 2000
+    });
+
+````
+ Example
 
 ```js
 createSlider({
-  parent: ".slider__wrapper",
-  url: "http://localhost:3000/slidersrc",
+parent: ".slider__wrapper",
+url: "http://localhost:3000/slidersrc",
 });
-```
+````
 
 6. Thats all, slider should be on a page in any kind of div, you choose with buttons and slides counter on right top corner.
 
