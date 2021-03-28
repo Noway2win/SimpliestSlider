@@ -44,6 +44,8 @@ Now you can add 2 args to function call and your slider will change slides witho
     delay: 15000}
 ```
 
+After User click slider will not change image for 30 seconds, then it will roll again.
+
     AutoSlider example:
 
 ```js

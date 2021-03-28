@@ -137,11 +137,13 @@ function createSlider({
                 console.log(`I am autoSlider${this.imgArr}`);
                 const inner = this.parent.querySelector(`.${this.parent.classList}-slider_inner`),
                     counter = this.parent.querySelector(`.${this.parent.classList}-slider_counter`),
+                    nextBtn = this.parent.querySelector(`.${this.parent.classList}-slide-next`),
+                    prevBtn = this.parent.querySelector(`.${this.parent.classList}-slide-prev`),
                     currentInd = counter.querySelector('#cur'),
                     totalSlides = this.imgArr.length;
                 let offset = 0,
                     slideIndex = 1;
-                setInterval(() => {
+                let autoSlide = setInterval(() => {
                     if (offset == Slider.stringToNumber(window.getComputedStyle(this.parent).width) * (totalSlides - 1)) {
                         offset = 0;
                         slideIndex = 1;
@@ -152,6 +154,40 @@ function createSlider({
                     inner.style.transform = `translateX(-${offset}px)`;
                     currentInd.innerText = `${slideIndex}`;
                 }, this.delay);
+
+                nextBtn.addEventListener("click", () => {
+                    clearInterval(autoSlide);
+                    setTimeout(() => {
+                        autoSlide = setInterval(() => {
+                            if (offset == Slider.stringToNumber(window.getComputedStyle(this.parent).width) * (totalSlides - 1)) {
+                                offset = 0;
+                                slideIndex = 1;
+                            } else {
+                                offset += Slider.stringToNumber(window.getComputedStyle(this.parent).width);
+                                slideIndex += 1;
+                            }
+                            inner.style.transform = `translateX(-${offset}px)`;
+                            currentInd.innerText = `${slideIndex}`;
+                        }, this.delay);
+                    }, 20000);
+                });
+                prevBtn.addEventListener("click", () => {
+                    clearInterval(autoSlide);
+                    setTimeout(() => {
+                        autoSlide = setInterval(() => {
+                            console.log('next slide');
+                            if (offset == Slider.stringToNumber(window.getComputedStyle(this.parent).width) * (totalSlides - 1)) {
+                                offset = 0;
+                                slideIndex = 1;
+                            } else {
+                                offset += Slider.stringToNumber(window.getComputedStyle(this.parent).width);
+                                slideIndex += 1;
+                            }
+                            inner.style.transform = `translateX(-${offset}px)`;
+                            currentInd.innerText = `${slideIndex}`;
+                        }, this.delay);
+                    }, 30000);
+                });
             }, 1000);
         }
     }
